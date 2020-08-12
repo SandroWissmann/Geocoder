@@ -21,7 +21,7 @@ def success():
     if request.method == "POST":
         file = request.files["file"]
         if not file.filename.endswith(".csv"):
-            return render_template("index.html")
+            return render_template("index.html", tables=[],)
 
         filename = "uploaded" + file.filename
         file.save(secure_filename(filename))
@@ -32,7 +32,7 @@ def success():
         # check for address or Address
         column_name = get_column_name(df, ["address", "Address"])
         if not column_name:
-            return render_template("index.html")
+            return render_template("index.html", tables=[],)
 
         # add latitude and longitude if available
         nominator = ArcGIS()
@@ -44,13 +44,14 @@ def success():
         df["Longitude"] = df["Coordinates"].apply(
             lambda x: x.longitude if x != None else None
         )
-        df.drop("Coordinates", axis=1)
-        print(df)
+        df = df.drop("Coordinates", axis=1)
 
         # save yourfile.csv
 
         return render_template(
-            "index.html", button_download="button_download.html"
+            "index.html",
+            tables=[df.to_html(classes="result_table", header="true")],
+            button_download="button_download.html",
         )
 
 

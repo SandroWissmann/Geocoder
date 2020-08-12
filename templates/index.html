@@ -16,6 +16,9 @@
             <input type="file" name="file">
             <button type="submit">Submit</button>
         </form>
+        {% for table in tables %}
+        {{ table|safe }}
+        {% endfor %}
         {% include [button_download] ignore missing %}
     </div>
 </body>
