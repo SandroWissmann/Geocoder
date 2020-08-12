@@ -68,7 +68,11 @@ def get_column_name(dataframe, possible_column_names):
 
 @app.route("/download")
 def download():
-    pass
+    return send_file(
+        filename_or_fp="yourfile.csv",
+        attachment_filename="yourfile.csv",
+        as_attachment=True,
+    )
 
 
 if __name__ == "__main__":
