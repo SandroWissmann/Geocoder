@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, send_file
 from werkzeug.utils import secure_filename
 from geopy.geocoders import ArcGIS
 import pandas
+from os import remove
 
 app = Flask(__name__)
 
@@ -29,6 +30,8 @@ def success():
         # open file with pandas
         df = pandas.read_csv(filename)
 
+        remove(filename)
+
         # check for address or Address
         column_name = get_column_name(df, ["address", "Address"])
         if not column_name:
@@ -47,6 +50,7 @@ def success():
         df = df.drop("Coordinates", axis=1)
 
         # save yourfile.csv
+        df.to_csv("yourfile.csv")
 
         return render_template(
             "index.html",
