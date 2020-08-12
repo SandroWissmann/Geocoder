@@ -10,6 +10,14 @@ def index():
 
 @app.route("/success", methods=["POST"])
 def success():
+    if request.method == "POST":
+        return render_template(
+            "index.html", button_download="button_download.html"
+        )
+
+
+@app.route("/download")
+def download():
     pass
 
 
