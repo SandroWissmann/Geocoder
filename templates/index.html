@@ -13,14 +13,14 @@
             be in a column named address or Address</h3>
         <form action="{{url_for('success')}}" method="POST"
             enctype="multipart/form-data">
-            <input type="file" name="file">
+            <input type="file" accept=".csv" name="file">
             <button type="submit">Submit</button>
         </form>
-        {% for table in tables %}
-        {{ table|safe }}
-        {% endfor %}
-        {% include [text_invalid_file] ignore missing %}
-        {% include [button_download] ignore missing %}
+        <div class="output">
+            {{text|safe}}
+            {% include [text_invalid_file] ignore missing %}
+            {% include [button_download] ignore missing %}
+        </div>
     </div>
 </body>
 

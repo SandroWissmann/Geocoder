@@ -33,12 +33,6 @@ def success():
 
             # check for address or Address
             column_name = get_column_name(df, ["address", "Address"])
-            if not column_name:
-                return render_template(
-                    "index.html",
-                    tables=[],
-                    text_invalid_file="text_invalid_file.html",
-                )
 
             # add latitude and longitude if available
             nominator = ArcGIS(timeout=None)
@@ -56,14 +50,14 @@ def success():
 
             return render_template(
                 "index.html",
-                tables=[df.to_html(classes="result_table", header="true")],
+                text=df.to_html(),
                 button_download="button_download.html",
             )
 
         except Exception as e:
             return render_template(
                 "index.html",
-                tables=[],
+                text=str(e),
                 text_invalid_file="text_invalid_file.html",
             )
 
