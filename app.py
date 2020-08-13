@@ -6,6 +6,8 @@ from os import remove
 
 app = Flask(__name__)
 
+output_filename = "yourfile.csv"
+
 
 @app.route("/")
 def index():
@@ -26,15 +28,12 @@ def success():
             filename = "uploaded" + file.filename
             file.save(secure_filename(filename))
 
-            # open file with pandas
             df = pandas.read_csv(filename)
 
             remove(filename)
 
-            # check for address or Address
             column_name = get_column_name(df, ["address", "Address"])
 
-            # add latitude and longitude if available
             nominator = ArcGIS(timeout=None)
             df["Coordinates"] = df[column_name].apply(nominator.geocode)
             df["Latitude"] = df["Coordinates"].apply(
@@ -45,8 +44,7 @@ def success():
             )
             df = df.drop("Coordinates", axis=1)
 
-            # save yourfile.csv
-            df.to_csv("yourfile.csv")
+            df.to_csv(output_filename)
 
             return render_template(
                 "index.html",
@@ -54,11 +52,11 @@ def success():
                 button_download="button_download.html",
             )
 
-        except Exception as e:
+        except:
             return render_template(
                 "index.html",
-                text=str(e),
-                text_invalid_file="text_invalid_file.html",
+                text="Please make sure you have an address column in yout CSV "
+                "file!",
             )
 
 
@@ -77,8 +75,8 @@ def get_column_name(dataframe, valid_column_names):
 def download():
     """Starts the file download for the user"""
     return send_file(
-        filename_or_fp="yourfile.csv",
-        attachment_filename="yourfile.csv",
+        filename_or_fp=output_filename,
+        attachment_filename=output_filename,
         as_attachment=True,
     )
 
