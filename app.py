@@ -38,7 +38,7 @@ def success():
             return render_template("index.html", tables=[],)
 
         # add latitude and longitude if available
-        nominator = ArcGIS()
+        nominator = ArcGIS(timeout=None)
         df["Coordinates"] = df[column_name].apply(nominator.geocode)
 
         df["Latitude"] = df["Coordinates"].apply(
