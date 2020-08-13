@@ -34,15 +34,7 @@ def success():
 
             column_name = get_column_name(df, ["address", "Address"])
 
-            nominator = ArcGIS(timeout=None)
-            df["Coordinates"] = df[column_name].apply(nominator.geocode)
-            df["Latitude"] = df["Coordinates"].apply(
-                lambda x: x.latitude if x != None else None
-            )
-            df["Longitude"] = df["Coordinates"].apply(
-                lambda x: x.longitude if x != None else None
-            )
-            df = df.drop("Coordinates", axis=1)
+            df = add_latitude_and_longitude(df, column_name)
 
             df.to_csv(output_filename)
 
@@ -69,6 +61,23 @@ def get_column_name(dataframe, valid_column_names):
         if valid_column_name in dataframe.columns:
             return valid_column_name
     return None
+
+
+def add_latitude_and_longitude(dataframe, address_column_name):
+    """ 
+    Adds latitude and logitude to dataframe. Address is used to look it up
+    """
+    nominator = ArcGIS(timeout=None)
+    dataframe["Coordinates"] = dataframe[address_column_name].apply(
+        nominator.geocode
+    )
+    dataframe["Latitude"] = dataframe["Coordinates"].apply(
+        lambda x: x.latitude if x != None else None
+    )
+    dataframe["Longitude"] = dataframe["Coordinates"].apply(
+        lambda x: x.longitude if x != None else None
+    )
+    return dataframe.drop("Coordinates", axis=1)
 
 
 @app.route("/download")
