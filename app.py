@@ -48,7 +48,6 @@ def success():
         # add latitude and longitude if available
         nominator = ArcGIS(timeout=None)
         df["Coordinates"] = df[column_name].apply(nominator.geocode)
-
         df["Latitude"] = df["Coordinates"].apply(
             lambda x: x.latitude if x != None else None
         )
@@ -67,15 +66,20 @@ def success():
         )
 
 
-def get_column_name(dataframe, possible_column_names):
-    for possible_column_name in possible_column_names:
-        if possible_column_name in dataframe.columns:
-            return possible_column_name
+def get_column_name(dataframe, valid_column_names):
+    """
+    Checks which valid column name is in dataframe and returns it if it exists.
+    If more than one valid column name exists the first one is considered only.
+    """
+    for valid_column_name in valid_column_names:
+        if valid_column_name in dataframe.columns:
+            return valid_column_name
     return None
 
 
 @app.route("/download")
 def download():
+    """Starts the file download for the user"""
     return send_file(
         filename_or_fp="yourfile.csv",
         attachment_filename="yourfile.csv",
