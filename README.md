@@ -55,7 +55,6 @@ All steps involving python should be done in the virtual environment.
   * Create the file in the folder of app.py.
   * The file should contain your python version like this: `python-3.6.9`
 
-
 * Create the file `Procfile`:
   * Create the file in the folder of app.py
   * Important the filename must begin with capital letter. `procfile` won't work
@@ -82,12 +81,12 @@ All steps involving python should be done in the virtual environment.
     * `git init`
   * Add all files: 
     * `git add .`
-  * commit: 
+  * Commit: 
     * `git commit -m "first commit"`
-  * link git repo with your app in heroku:
+  * Link local git repository with your app in heroku:
     * `heroku git:remote --app appname`
     * `appname` is the name you selected. See step Create app
-  * upload webapp: 
+  * Upload webapp: 
     * `git push heroku master`
-  * open uploaded webapp: 
+  * Open uploaded webapp: 
     * `heroku open`
