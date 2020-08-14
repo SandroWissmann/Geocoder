@@ -6,9 +6,9 @@
 
 ## Features
 
-* Upload a .CSV file to the webserver which contains adresses
-* Calculates the geographical coordinates of the addresses (latitude and longitude)
-* Provides a new .CSV file with the added data. Can be downloaded
+* Upload a .CSV file with addresses to the webserver
+* The webserver calculates the geographical coordinates of the addresses (latitude and longitude)
+* Download a new .CSV file with the added geographical coordinates.
 
 ## How to run locally
 
