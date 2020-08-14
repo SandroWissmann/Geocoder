@@ -71,15 +71,23 @@ All steps involving python should be done in the virtual environment.
 
 * Deploy webapp to Heroku
   * Open a terminal in the folder of `app.py`
-  * Log into heroku with: `heroku login`
-  * Create app: `heroku create appname`
+  * Log into heroku with: 
+    * `heroku login`
+  * Create app: 
+    * `heroku create appname`
     * replace `appname` with the name you want
-    * check if it was successfull with `heroku apps`
-  * Create git repo: `git init`
-  * Add all files: `git add .`
-  * commit: `git commit -m "first commit"`
+    * check if it was successfull with 
+      * `heroku apps`
+  * Create git repo: 
+    * `git init`
+  * Add all files: 
+    * `git add .`
+  * commit: 
+    * `git commit -m "first commit"`
   * link git repo with your app in heroku:
     * `heroku git:remote --app appname`
     * `appname` is the name you selected. See step Create app
-  * upload webapp: `git push heroku master`
-  * open uploaded webapp: `heroku open`
+  * upload webapp: 
+    * `git push heroku master`
+  * open uploaded webapp: 
+    * `heroku open`
