@@ -1,4 +1,4 @@
-# Super Geocoder
+# Geocoder
 
 <img src="doc/app.png"/>
 
